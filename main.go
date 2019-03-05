@@ -15,7 +15,7 @@ import (
 	"github.com/mailhog/MailHog-UI/assets"
 	cfgui "github.com/mailhog/MailHog-UI/config"
 	"github.com/mailhog/MailHog-UI/web"
-	cfgcom "github.com/mailhog/MailHog/config"
+	//cfgcom "github.com/mailhog/MailHog/config"
 	"github.com/mailhog/http"
 	"github.com/mailhog/mhsendmail/cmd"
 	"golang.org/x/crypto/bcrypt"
@@ -23,21 +23,21 @@ import (
 
 var apiconf *cfgapi.Config
 var uiconf *cfgui.Config
-var comconf *cfgcom.Config
+//var comconf *cfgcom.Config
 var exitCh chan int
 var version string
 
 func configure() {
-	cfgcom.RegisterFlags()
+//	cfgcom.RegisterFlags()
 	cfgapi.RegisterFlags()
 	cfgui.RegisterFlags()
 	flag.Parse()
 	apiconf = cfgapi.Configure()
 	uiconf = cfgui.Configure()
-	comconf = cfgcom.Configure()
+	//comconf = cfgcom.Configure()
 
-	apiconf.WebPath = comconf.WebPath
-	uiconf.WebPath = comconf.WebPath
+	//apiconf.WebPath = comconf.WebPath
+	//uiconf.WebPath = comconf.WebPath
 }
 
 func main() {
@@ -74,9 +74,9 @@ func main() {
 
 	configure()
 
-	if comconf.AuthFile != "" {
-		http.AuthFile(comconf.AuthFile)
-	}
+	//if comconf.AuthFile != "" {
+	//	http.AuthFile(comconf.AuthFile)
+	//}
 
 	exitCh = make(chan int)
 	if uiconf.UIBindAddr == apiconf.APIBindAddr {

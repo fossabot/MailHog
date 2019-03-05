@@ -8,6 +8,8 @@ import (
 	"net/http"
 	"path/filepath"
 	"strings"
+	"os"
+	"fmt"
 
 	"github.com/gorilla/pat"
 	"github.com/mailhog/MailHog-UI/config"
@@ -45,6 +47,25 @@ func CreateWeb(cfg *config.Config, r http.Handler, asset func(string) ([]byte, e
 func (web Web) Static(pattern string) func(http.ResponseWriter, *http.Request) {
 	return func(w http.ResponseWriter, req *http.Request) {
 		fp := strings.TrimSuffix(pattern, "{{file}}") + req.URL.Query().Get(":file")
+
+		if f, err := os.Open(fp); err == nil {
+			fmt.Println(fp)
+			ext := filepath.Ext(fp)
+			fi, err := f.Stat()
+
+			if err != nil {
+				return;
+			}
+
+			fileData := make([]byte, fi.Size())
+			f.Read(fileData)
+
+			w.Header().Set("Content-Type", mime.TypeByExtension(ext))
+			w.WriteHeader(200)
+			w.Write(fileData)
+			return
+		}
+
 		if b, err := web.asset(fp); err == nil {
 			ext := filepath.Ext(fp)
 
@@ -80,7 +101,7 @@ func (web Web) Index() func(http.ResponseWriter, *http.Request) {
 		log.Fatalf("[UI] Error loading layout.html: %s", err)
 	}
 
-	layout, err = layout.Parse(string(asset))
+	layout, err = layout.ParseFiles("assets/templates/layout.html")
 	if err != nil {
 		log.Fatalf("[UI] Error parsing layout.html: %s", err)
 	}
