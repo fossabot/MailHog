@@ -20,6 +20,7 @@ RUN apk --no-cache add --virtual build-dependencies \
   && mkdir ~/source \
   && git clone https://github.com/mennoboer/MailHog.git ~/source \
   && mv ~/source/assets/ ~/ \
+  && chmod -R ugo+rw ~/assets/ \
   && rm -rf ~/source \
   && apk del --purge build-dependencies
 
