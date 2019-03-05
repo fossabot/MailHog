@@ -17,17 +17,18 @@ RUN apk --no-cache add --virtual build-dependencies \
   && go get github.com/mennoboer/MailHog \
   && mv /root/gocode/bin/MailHog /usr/local/bin \
   && rm -rf /root/gocode \
-  && mkdir ~/source \
-  && git clone https://github.com/mennoboer/MailHog.git ~/source \
-  && mv ~/source/assets/ ~/ \
-  && chmod -R ugo+rw ~/assets/ \
-  && rm -rf ~/source \
+  && adduser -D -u 1000 mailhog \
+  && mkdir /home/mailhog/source \
+  && git clone https://github.com/mennoboer/MailHog.git /home/mailhog/source \
+  && mv /home/mailhog/source/assets/ /home/mailhog/ \
+  && chmod -R ugo+rw /home/mailhog/assets/ \
+  && rm -rf /home/mailhog/source \
   && apk del --purge build-dependencies
 
 # Add mailhog user/group with uid/gid 1000.
 # This is a workaround for boot2docker issue #581, see
 # https://github.com/boot2docker/boot2docker/issues/581
-RUN adduser -D -u 1000 mailhog
+# RUN adduser -D -u 1000 mailhog
 
 USER mailhog
 
