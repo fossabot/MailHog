@@ -17,6 +17,10 @@ RUN apk --no-cache add --virtual build-dependencies \
   && go get github.com/mennoboer/MailHog \
   && mv /root/gocode/bin/MailHog /usr/local/bin \
   && rm -rf /root/gocode \
+  && mkdir ~/source \
+  && git clone https://github.com/mennoboer/MailHog.git ~/source \
+  && mv ~/source/assets/ ~/ \
+  && rm -rf ~/source \
   && apk del --purge build-dependencies
 
 # Add mailhog user/group with uid/gid 1000.

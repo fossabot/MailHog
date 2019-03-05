@@ -96,10 +96,12 @@ func (web Web) Index() func(http.ResponseWriter, *http.Request) {
 	layout := template.New("layout.html")
 	layout.Delims("[:", ":]")
 
+	/*
 	asset, err = web.asset("assets/templates/layout.html")
 	if err != nil {
 		log.Fatalf("[UI] Error loading layout.html: %s", err)
 	}
+	*/
 
 	layout, err = layout.ParseFiles("assets/templates/layout.html")
 	if err != nil {
