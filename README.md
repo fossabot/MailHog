@@ -76,6 +76,7 @@ sendmail_path = /usr/sbin/sendmail -S mail:1025
 #### Web UI
 
 ![Screenshot of MailHog web interface](/docs/MailHog.png "MailHog web interface")
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fmennoboer%2FMailHog.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fmennoboer%2FMailHog?ref=badge_shield)
 
 ### Contributing
 
@@ -96,3 +97,6 @@ If you make any changes, run ```go fmt ./...``` before submitting a pull request
 Copyright ©‎ 2014 - 2017, Ian Kent (http://iankent.uk)
 
 Released under MIT license, see [LICENSE](LICENSE.md) for details.
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fmennoboer%2FMailHog.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fmennoboer%2FMailHog?ref=badge_large)
